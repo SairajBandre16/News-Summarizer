@@ -11,8 +11,7 @@ CORS(app)
 nltk.download('punkt')
 
 # Define your API key
-# API_KEY = 'fc7287ca453a4829935901f496963ce3'
-API_KEY = '3e82b8a032924472a1e0622411fc96eb'
+API_KEY = 'your api key'
 
 # Define a function to fetch news data based on category
 def fetch_news(category):
@@ -23,7 +22,7 @@ def fetch_news(category):
     return data.get('articles', [])
 
 def fetch_all():
-    url = f'https://newsapi.org/v2/everything?q=general&apiKey=3e82b8a032924472a1e0622411fc96eb'
+    url = f'https://newsapi.org/v2/everything?q=general&apiKey={API_KEY}'
     response = requests.get(url)
     data = response.json()
     return data.get('articles', [])
