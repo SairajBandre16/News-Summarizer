@@ -27,7 +27,7 @@ The News Summarizer is a project designed to simplify the process of staying inf
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/news-summarizer.git
+   git clone https://github.com/SairajBandre16/news-summarizer.git
    cd news-summarizer
    ```
 
