@@ -1,0 +1,33 @@
+# docker compose up --build    then open http://localhost:3000
+#
+# No keys are needed. Optional keys (GROQ_API_KEY, SECRET_KEY, ...) are read from
+# backend/.env (see backend/.env.example) or the repo-root .env.
+# The API is not published: only the web app can reach it, through its /api proxy.
+
+services:
+  backend:
+    build: ./backend
+    env_file:
+      - path: ./backend/.env
+        required: false
+      - path: ./.env
+        required: false
+    environment:
+      # Requests arrive through the Next.js proxy, which forwards the visitor's address.
+      TRUST_PROXY: "1"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_SITE_URL: ${SITE_URL:-http://localhost:3000}
+    environment:
+      BACKEND_URL: http://backend:8080
+      NEXT_PUBLIC_SITE_URL: ${SITE_URL:-http://localhost:3000}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
